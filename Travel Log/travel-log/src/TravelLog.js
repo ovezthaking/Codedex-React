@@ -18,19 +18,38 @@ export default function TravelLog() {
     setActivities(selectedActivities);
   }
 
-  // Define handleInputDataChange() here 💖
+  function handleInputDataChange(e){
+    setInputData({
+        ...inputData,
+        [e.target.name] : e.target.value
+    });
+  }
 
-  // Define handleSubmit() here 💖
+  function handleSubmit(e){
+    e.preventDefault();
+
+    setActivities([]);
+    setInputData({
+     destination: "",
+     dates: "",
+     groupSize: 0,
+     travelPreferences: ""
+   });
+
+  }
 
   return (
     <div>
       <h2>Adventure Travel Booking</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="destination">Destination:</label>
-        <input type='text' name='destination' id='destination'/>
+        <input type='text' name='destination' id='destination'
+            value={inputData.destination} onChange={handleInputDataChange}
+        />
         
         <label htmlFor="activities">Activities: </label>
-        <select name="activities" id="activities">
+        <select multiple value={activities} name="activities" id="activities"
+        onChange={handleActivitiesChange}>
             <option value='biking'>Biking</option>
             <option value='safari'>Safari</option>
             <option value='skiing'>Skiing</option>
@@ -38,14 +57,19 @@ export default function TravelLog() {
             <option value='boat'>Boat Trip</option>
         </select>
 
-        <label htmlFor="date">Date:</label>
-        <input type="date" name="date" id="date"/>
+        <label htmlFor="dates">Date:</label>
+        <input type="date" name="dates" id="dates"
+            value={inputData.dates} onChange={handleInputDataChange}
+        />
 
         <label htmlFor="groupSize">Group Size:</label>
-        <input type="number" name="groupSize" id="groupSize"/>
+        <input type="number" name="groupSize" id="groupSize"
+            value={inputData.groupSize} onChange={handleInputDataChange}
+        />
 
-        <label htmlFor="thoughts">Thoughts and reflections:</label>
-        <textarea name="thoughts" id='thoughts'></textarea>
+        <label htmlFor="travel-preferences">Thoughts and reflections:</label>
+        <textarea name="travelPreferences" id='travel-preferences'
+        value={inputData.travelPreferences} onChange={handleInputDataChange}></textarea>
 
         <button type="submit">Submit</button>
       </form>
