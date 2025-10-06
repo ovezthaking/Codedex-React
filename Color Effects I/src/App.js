@@ -1,22 +1,19 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { React, useState } from "react";
+// Import createContext 💖
+// Import Home and ThemeSwitcher here 💖
 import "./styles.css";
 
+// Create a ThemeContext here 💖
+
 export default function App() {
-  const [color, setColor] = useState('#ffffff');
+  const [theme, setTheme] = useState("barbie");
 
-  useEffect(function () {
-    document.body.style.backgroundColor = color;
-  }, [color]);
-
-  function generateColor() {
-    const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    setColor(randomColor);
+  // Toggle theme function
+  function toggleTheme() {
+    setTheme(function (prevTheme) {
+      return prevTheme === "barbie" ? "oppenheimer" : "barbie";
+    });
   }
 
-  return (
-    <div id="button">
-      <button onClick={generateColor}>ZAP!!</button>
-    </div>
-  );
+  return <>{/* Use ThemeContext.Provider here 💖 */}</>;
 }
