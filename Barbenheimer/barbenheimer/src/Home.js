@@ -1,8 +1,10 @@
 // Import ThemeContext and useContext here 💖
-import { useEffect } from "react";
+import { ThemeContext } from "./App";
+import { useEffect, useContext } from "react";
 
 export default function Home() {
   // Use the useContext hook to consume the ThemeContext here 💖
+  const { theme } = useContext(ThemeContext);
 
   useEffect(
     function () {

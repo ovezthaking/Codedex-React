@@ -20,5 +20,10 @@ export default function App() {
     });
   }
 
-  return <>{/* Use ThemeContext.Provider here 💖 */}</>;
+  return (
+    <ThemeContext.Provider value = {{ theme, toggleTheme }}>
+      <ThemeSwitcher />
+      <Home />
+    </ThemeContext.Provider>
+  );
 }
