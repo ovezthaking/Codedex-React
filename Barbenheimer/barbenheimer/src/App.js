@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useState } from "react";
+// Import createContext 💖
+import {createContext} from 'react';
+// Import Home and ThemeSwitcher here 💖
+import Home from "./Home";
+import ThemeSwitcher from "./ThemeSwitcher";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./styles.css";
+
+// Create a ThemeContext here 💖
+export const ThemeContext = createContext();
+
+export default function App() {
+  const [theme, setTheme] = useState("barbie");
+
+  // Toggle theme function
+  function toggleTheme() {
+    setTheme(function (prevTheme) {
+      return prevTheme === "barbie" ? "oppenheimer" : "barbie";
+    });
+  }
+
+  return <>{/* Use ThemeContext.Provider here 💖 */}</>;
 }
-
-export default App;
