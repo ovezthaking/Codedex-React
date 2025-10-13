@@ -1,6 +1,5 @@
 import React from "react";
 import Column from "./Column";
-import Task from "./Task";
 import { useState, useEffect, createContext, useContext } from "react";
 
 import "./styles.css";
@@ -24,7 +23,12 @@ const TaskBoardProvider = function () {
     setTasks(updatedTasks);
   };
 
-  // add useEffect here 💖
+  useEffect(function(){
+    const doneTasks = document.querySelectorAll('.task[data-status="done"]');
+    doneTasks.forEach(function(taskElement){
+      taskElement.style.backgroundColor = "#dbf3c9"
+    });
+  });
 
   return (
     <BoardContext.Provider value={{tasks, moveTask}}>
@@ -34,7 +38,7 @@ const TaskBoardProvider = function () {
 };
 
 const Board = function () {
-  // add useContext here 💖
+  const { tasks } = useContext(BoardContext);
 
   return (
     <div className="board">
@@ -61,5 +65,5 @@ const Board = function () {
 };
 
 export default function App() {
-  return <div className="App">{/* Add TaskBoardProvider here 💖  */}</div>;
+  return <div className="App">{<TaskBoardProvider/>}</div>;
 }
