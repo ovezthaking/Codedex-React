@@ -28,11 +28,7 @@ export default function App() {
       {(error && (
         <img
           width="300"
-          src={
-            {
-              errorSrc
-            }
-          }
+          src={errorSrc}
         />
       )) || (
         <img width="300" src="https://i.giphy.com/ynNF0bU8fB3HsInXEL.webp" />
