@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 export default function Pokedex() {
   const [ pokemonList, setPokemonList ] = useState([]);
   const [filteredPokemonList, setFilteredPokemonList] = useState([]);
+  const loadingMessage = 'loading...';
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(function () {
+    setIsLoading(true);
     async function fetchData() {
       try {
         const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon?limit=25",
+          "https://pokeapi.co/api/v2/pokemon?limit=100",
         );
 
         const data = await response.json();
@@ -21,12 +24,17 @@ export default function Pokedex() {
         }
         setPokemonList(pokemonDataList);
         setFilteredPokemonList(pokemonDataList);
+        setIsLoading(false);
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
     }
 
-    fetchData();
+
+    const timer = setTimeout(function(){
+        fetchData();
+    }, 3000);
+    
   }, []);
 
   function handleFilterChange(event) {
@@ -37,30 +45,39 @@ export default function Pokedex() {
 
     setFilteredPokemonList(filtered);
   }
-
-  return (
-    <div>
-      <h1>Pokemon List</h1>
-      <div>
-        <input
-          type="text"
-          placeholder="Search Pokemon..."
-          onChange={handleFilterChange}
-        />
-      </div>
-      <ul>
-        {filteredPokemonList.map(function (pokemon, index) {
-          return (
-            <li key={index} className="pokemon">
-              <p>
-                {pokemon.id}.{" "}
-                {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}
-              </p>
-              <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+    if (isLoading) {
+        return (
+        <div className="loading-screen">
+            <div className="loading-animation"></div>
+            <div className="loading-message">{loadingMessage}</div>
+        </div>
+        );
+    }
+    else{
+        return (
+            <div>
+            <h1>Pokemon List</h1>
+            <div>
+                <input
+                type="text"
+                placeholder="Search Pokemon..."
+                onChange={handleFilterChange}
+                />
+            </div>
+            <ul>
+                {filteredPokemonList.map(function (pokemon, index) {
+                return (
+                    <li key={index} className="pokemon">
+                    <p>
+                        {pokemon.id}.{" "}
+                        {pokemon.name[0].toUpperCase() + pokemon.name.slice(1)}
+                    </p>
+                    <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+                    </li>
+                );
+                })}
+            </ul>
+            </div>
+        );
+    };
 }
