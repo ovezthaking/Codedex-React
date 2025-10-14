@@ -13,11 +13,11 @@ export default function App() {
           "https://jsonplaceholder.typicode.com/posts/1",
         );
         if (response.ok === false) {
-          // Throw error here 💖
+          throw new Error('fetching failed');
         }
         setError(null);
       } catch (err) {
-        // Set error message here 💖
+        setError(err.message);
       }
     }
     fetchData();
@@ -30,7 +30,7 @@ export default function App() {
           width="300"
           src={
             {
-              /* Place src here 💖 */
+              errorSrc
             }
           }
         />
@@ -38,7 +38,7 @@ export default function App() {
         <img width="300" src="https://i.giphy.com/ynNF0bU8fB3HsInXEL.webp" />
       )}
 
-      {(error && <h2>{/* Place error message here 💖 */}</h2>) || (
+      {(error && <h2>{error}</h2>) || (
         <h2>Yay, no errors!</h2>
       )}
     </div>
