@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+import NavBar from "./components/NavBar";
+import LegendOfZelda from "./components/LegendOfZelda";
+import LinkPast from "./components/LinkPast";
+import TwilightPrincess from "./components/TwilightPrincess";
+import LinkWorlds from "./components/LinkWorlds";
+import BoTW from "./components/BoTW";
+import "./styles.css";
+
+export default function App() {
+  function Home() {
+    return (
+      <div className="center">
+        <p>Explore the pages above!</p>
+      </div>
+    );
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar />
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/1986" exact element={<LegendOfZelda />} />
+        <Route path="/1992" exact element={<LinkPast />} />
+        <Route path="/2006" exact element={<TwilightPrincess />} />
+        <Route path="/2013" exact element={<LinkWorlds />} />
+        <Route path="/2017" exact element={<BoTW />} />
+      </Routes>
     </div>
   );
 }
-
-export default App;
